@@ -1,0 +1,162 @@
+<div class="container">
+
+    <ul class="nav nav-pills mb-3 justify-content-end text-white" id="pills-tab" role="tablist"
+        style="text-align: right; background-color: #0a4275; padding-bottom: 20px; padding-top: 15px;">
+        <li class="nav-item text-white" style="margin-right: 600px;"  role="presentation">
+            Welcome New User
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active text-white" id="pills-home-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                aria-selected="true">Create Group</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link text-white" id="pills-profile-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                aria-selected="false">Dashboard</button>
+        </li>
+        <li class="nav-item" role="presentation" style="padding-right: 15px;">
+            <button class="nav-link text-white" id="pills-contact-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
+                aria-selected="false">Logout</button>
+        </li>
+    </ul>
+    <div class="row">
+        <div class="col-lg-3">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-9 card p-3">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+                    tabindex="0">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row g-3">
+                                <div class="col-auto">
+                                    <label for="inputPassword6" class="col-form-label">Group Name:-</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="text" id="inputPassword6" class="form-control"
+                                        aria-describedby="passwordHelpInline">
+                                </div>
+                            </div>
+                            <div class="card mt-5" >
+                                <div class="card-header text-center">
+                                  <h3>Member</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">First</th>
+                                                <th scope="col">Last</th>
+                        
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label">Category:-</label>
+                            </div>
+                            <div class="col-auto">
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                        Default dropdown
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
+                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
+                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center">
+                                <div class="col-lg-12 text-center">
+                                    <h4>Simplify Debts</h4>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                          <h4>True</h4>
+                                        </label>
+                                      </div>
+                                      <div class="form-floating mt-5">
+                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea">Comments</label>
+                                      </div>
+                                      <a href="#" class="btn btn-primary mt-5">Click To Add</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                    tabindex="0">
+                    Dashboard created</div>
+            </div>
+        </div>
+    </div>
+    <section class="">
+        <!-- Footer -->
+        <footer class="text-center text-white" style="background-color: #0a4275;">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: CTA -->
+                <section class="">
+                    <p class="d-flex justify-content-center align-items-center">
+                        <span class="me-3">Register for free</span>
+                        <button data-mdb-ripple-init type="button" class="btn btn-outline-light btn-rounded">
+                            Sign up!
+                        </button>
+                    </p>
+                </section>
+                <!-- Section: CTA -->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-white">SplitWise</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+    </section>
+</div>
