@@ -1,5 +1,3 @@
-
-
 import { Injectable } from '@angular/core';
 import {
     HttpErrorResponse,
@@ -21,7 +19,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.configservice.getToken();
-        console.log(token);
         if (token) {
             const decodedHeader = this.configservice.decodeToken(token);
             let headertoken: number = decodedHeader.exp;
@@ -39,9 +36,9 @@ export class AuthInterceptor implements HttpInterceptor {
             tap((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
 
-                    if (event.status === 200) {
-                        this.router.navigate(['/dashboard']);
-                    }
+                    // if (event.status === 200) {
+                    //     this.router.navigate(['/dashboard']);
+                    // }
                 }
             }, (error: any) => {
                 if (error instanceof HttpErrorResponse) {

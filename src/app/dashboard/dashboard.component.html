@@ -3,7 +3,7 @@
     <ul class="nav nav-pills mb-3 justify-content-end text-white" id="pills-tab" role="tablist"
         style="text-align: right; background-color: #0a4275; padding-bottom: 20px; padding-top: 15px;">
         <li class="nav-item text-white" style="margin-right: 600px;"  role="presentation">
-            Welcome New User
+            Welcome {{currentUserName}}
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link active text-white" id="pills-home-tab" data-bs-toggle="pill"
@@ -18,7 +18,7 @@
         <li class="nav-item" role="presentation" style="padding-right: 15px;">
             <button class="nav-link text-white" id="pills-contact-tab" data-bs-toggle="pill"
                 data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
-                aria-selected="false">Logout</button>
+                aria-selected="false" (click)="logout()" >Logout</button>
         </li>
     </ul>
     <div class="row">
@@ -26,19 +26,15 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
+                        <th scope="col">Group Name</th>
+                        <th scope="col">Action</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
+                    <tr *ngFor="let gr of GroupDetails">
+                        <td>{{gr.groupName}}</td>
+                        <td><i class="fa fa-pencil-square-o" aria-hidden="true" (click)="editGroup(gr.groupId)"></i></td>
                     </tr>
                 </tbody>
             </table>
@@ -54,8 +50,8 @@
                                     <label for="inputPassword6" class="col-form-label">Group Name:-</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="text" id="inputPassword6" class="form-control"
-                                        aria-describedby="passwordHelpInline">
+                                    <input type="text" id="groupName" class="form-control"
+                                        aria-describedby="passwordHelpInline" [(ngModel)]="groupname">
                                 </div>
                             </div>
                             <div class="card mt-5" >
@@ -66,23 +62,21 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
+                                                <th scope="col">User Name</th>
+                                                <th scope="col">Email Address</th>
                         
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
+                                            <tr *ngFor="let mem of members">
+                                                <td>{{mem.userName}}</td>
+                                                <td>{{mem.userEmail}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    
+                                  <a href="javascript:void(0);" class="link-primary text-center" style="margin-left: 140px;" data-bs-target="#ShowUser" data-bs-toggle="modal" (click)="getmembers()">Add More</a><br>
+                                  <a href="javascript:void(0);" class="text-center" style="margin-left: 130px;">Use Invite Link</a>
                                 </div>
                               </div>
                         </div>
@@ -92,17 +86,9 @@
                                 <label for="inputPassword6" class="col-form-label">Category:-</label>
                             </div>
                             <div class="col-auto">
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
-                                        Default dropdown
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                    </ul>
-                                </div>
+                                <select class="form-select" [(ngModel)]="groupcategory"  aria-label="Default select example">
+                                    <option *ngFor="let cate of datacategories">{{cate.categoriesList}}</option>
+                                  </select>
                             </div>
                             <div class="row g-3 align-items-center">
                                 <div class="col-lg-12 text-center">
@@ -110,16 +96,16 @@
                                 </div>
                                 <div class="col-lg-12 text-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" [(ngModel)]="groupSimplifyDebtsvalue" type="checkbox"  id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                           <h4>True</h4>
                                         </label>
                                       </div>
                                       <div class="form-floating mt-5">
-                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+                                        <textarea class="form-control" [(ngModel)]="grouptextarea" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
                                         <label for="floatingTextarea">Comments</label>
                                       </div>
-                                      <a href="#" class="btn btn-primary mt-5">Click To Add</a>
+                                      <a href="javascript:void(0);" class="btn btn-primary mt-5" (click)="createGroup()">{{isbuttonedit?"Edit or Save": "Click to Add"}}</a>
                                 </div>
                             </div>
                             </div>
@@ -159,4 +145,24 @@
         </footer>
         <!-- Footer -->
     </section>
+</div>
+<div class="modal fade" id="ShowUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Users</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group" *ngFor="let user of users">
+                    <li class="list-group-item">{{user.userName}}<button style="float: right;"
+                            ><i class="fa fa-user-plus" aria-hidden="true" (click)="addmembers(user)"></i></button></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

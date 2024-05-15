@@ -25,7 +25,7 @@ export class UserService {
         'Access-Control-Allow-Headers': '*',
       })
     };
-    return this.http.get<any>(`${this.apiUrl}/users`, httpOptionss);
+    return this.http.get<any>(`${this.apiUrl}/users`);
   }
   
 }

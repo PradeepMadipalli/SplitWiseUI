@@ -10,9 +10,11 @@ import { ConfigService } from '../services/config.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastrService, provideToastr } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GroupService } from '../services/group.service';
+import { AuthInterceptor } from '../services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [AuthService,ConfigService,provideAnimations(), // required animations providers
-  provideToastr(), ],
+  providers: [AuthService,ConfigService,provideAnimations(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  provideToastr(), GroupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

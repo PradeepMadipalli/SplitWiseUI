@@ -28,6 +28,12 @@ export class ConfigService {
    }
     return null;
   }
+  getCuurectusername(): string {
+    if (typeof sessionStorage !== 'undefined') {
+      return sessionStorage.getItem('Username');
+   }
+    return null;
+  }
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
@@ -35,6 +41,8 @@ export class ConfigService {
     sessionStorage.removeItem('Profile');
     sessionStorage.removeItem('Token');
     sessionStorage.removeItem('userid');
+    sessionStorage.removeItem('Username');
+    
     this.router.navigate(['/login']);
   }
   decodeToken(token: string): any {
