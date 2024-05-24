@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../services/config.service';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { Categories, EditGroupDetails, RequestGroup, RequesteditGroup, members } from '../models/members.model';
+import { Categories, EditGroupDetails, GetInvitationRequest, GetUsers, RequestGroup, RequesteditGroup, members } from '../models/members.model';
 import { GroupService } from '../../services/group.service';
 import { Observable } from 'rxjs';
 
@@ -17,22 +17,36 @@ export class DashboardComponent implements OnInit {
   members: members[] = [];
   addmember: members;
   sendgroupdatas: RequestGroup;
-  sendgroupdetails:EditGroupDetails;
+  sendgroupdetails: EditGroupDetails;
   groupname: string;
   groupcategory: string;
-  groupSimplifyDebtsvalue: string;
+  groupSimplifyDebtsvalue: boolean;
   grouptextarea: string;
   GroupDetails: any[] = [];
   currentUserName: string;
   datacategories: any[];
-  editzgroupdetails:any[];
-  isbuttonedit:boolean=false;
- 
+  editzgroupdetails: any[];
+  isbuttonedit: boolean = false;
+  Groudid: string;
+  year: number;
+  getinvitionRequest: GetInvitationRequest;
+  getfriends: any[] = [];
+  getTotalAmount: any[] = [];
+  totalAmount: string;
+  ownAmount: string;
+  OwnedAmount: string;
+  Amount: string;
+  useremail: string;
+  userid: string;
+  username: string;
+  getActivity: any[];
+
 
   constructor(private config: ConfigService,
     private userservice: UserService,
     private toastr: ToastrService,
     private groupservice: GroupService) {
+
 
   }
   ngOnInit(): void {
@@ -40,6 +54,9 @@ export class DashboardComponent implements OnInit {
     this.getGroups();
     this.currentUser = this.config.getCuurectuserid();
     this.currentUserName = this.config.getCuurectusername();
+    this.getFriendslist();
+    this.gettotalamountbyuserid();
+    this.GetActivities();
 
   }
   logout() {
@@ -56,91 +73,77 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-  getmembers() {
-    this.getGroups()
-    this.getUsers();
-    this.getcategories();
-  }
-  addmembers(user: any) {
-    this.addmember = {
-      userId: user.userId,
-      userEmail: user.userEmail,
-      userName: user.userName
-    }
-    if (this.members == undefined || this.members == null) {
-      this.members.push(this.addmember);
-      console.log(this.addmember + "first")
-    }
 
-    else {
-      console.log(this.addmember)
-      this.members.push(this.addmember);
-    }
-  }
-  createGroup() {
-    this.sendgroupdatas = {
-      GroupName: this.groupname,
-      Userlist: JSON.stringify(this.members),
-      UserId: this.currentUser,
-      Category: this.groupcategory,
-      SimplifyDebts: this.groupSimplifyDebtsvalue,
-      Comments: this.grouptextarea
-    }
-    this.groupservice.createGroups(this.sendgroupdatas).subscribe(
-      (response: any) => {
-        //console.log(response);
-      },
-      (error) => {
-        this.toastr.error('Error fetching data:', error);
-      }
-    );
-  }
+
+
   getGroups() {
     this.groupservice.GetGroups().subscribe(
       (response: any) => {
-        //console.log(response);
+        console.log(response);
         this.GroupDetails = response;
+        console.log(response);
       },
       (error) => {
         this.toastr.error('Error fetching data:', error);
       }
     );
   }
-  editGroup(groupid: any) {
-    console.log(groupid);
-    this.groupservice.geteditgroups(groupid).subscribe(response => {
-      this.groupname=response.groupName;
-      this.members=response.usersGroups;
+
+
+  getFriendslist() {
+    this.groupservice.GetFriendsList().subscribe(response => {
       console.log(response);
-      this.isbuttonedit=!this.isbuttonedit;
-    }, (error) => {
-      this.toastr.error('Error fetching data:', error);
-    }
-    );
+      this.getfriends = response;
+      console.log(this.getfriends);
+    })
   }
-  getcategories() {
-    this.groupservice.GetCategories().subscribe(response => {
+  gettotalamountbyuserid() {
+    this.groupservice.getTotalAmountbyuserid().subscribe(response => {
       console.log(response);
-      this.datacategories = response;
-    }, (error) => {
-      this.toastr.error('Error fetching data:', error);
-    }
-    );
+      this.totalAmount = response.totalAmount;
+      this.ownAmount = response.oweAmount;
+      this.OwnedAmount = response.owedAmount;
+
+    })
   }
-  editgroupdetails(){
-   this.sendgroupdetails={
-    groupId:null,
-    groupName:null,
-    Category:null,
-    SimplifyDebts:null,
-    Comments:null
-   }
-    this.groupservice.Editgroupdetails(this.sendgroupdetails).subscribe(response => {
-      console.log(response);
-      this.editzgroupdetails = response;
-    }, (error) => {
-      this.toastr.error('Error fetching data:', error);
+  GetPaidBy(id: string) {
+    if (id == this.currentUser) {
+      return "You";
+    } else {
+      if (this.getfriends.length != 0) {
+        const mem = this.getfriends.find(a => a.userId == id);
+
+        return mem.userName;
+      }
+      return "user";
     }
-    );
+
+  }
+  GetParticipateByID(id: string) {
+
+    if (id == this.currentUser) {
+      return "You";
+    } else {
+      if (this.getfriends.length != 0) {
+        const mem = this.getfriends.find(a => a.userId == id);
+
+        return mem.userName;
+      }
+      return "user";
+    }
+
+  }
+  GetGroupByid(id: string) {
+    if (this.GroupDetails.length != 0) {
+      const mem = this.GroupDetails.find(a => a.groupId == id);
+      return mem.groupName;
+    }
+    return "No Group";
+  }
+  GetActivities() {
+    this.groupservice.getactivities().subscribe(data => {
+      this.getActivity = data;
+      console.log(this.getActivity + "activity");
+    })
   }
 }

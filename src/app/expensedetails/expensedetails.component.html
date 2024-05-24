@@ -1,0 +1,41 @@
+<app-nav></app-nav>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            Expense Details
+        </div>
+        <div class="card-body">
+            <table class="table mt-4">
+                <thead>
+                    <th class="text-center">Pending</th>
+                    <th class="text-center">Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let exp of expensedetails">
+                        <td style="text-align: center;"
+                            *ngIf="currentUser!=exp.participantId && exp.paidBy==currentUser">
+
+                            {{GetPaidBy(exp.paidBy)}}
+                            <b>Owe</b> {{ GetParticipateByID(exp.participantId)}} Rs: {{exp.amount}}/- on
+
+                            <b class="text-primary">{{exp.expName}}</b> in <b>{{ GetGroupByid(exp.groupid)}}</b>
+                        </td>
+                        <td style="text-align: center;"
+                            *ngIf="currentUser!=exp.participantId && exp.paidBy!=currentUser">
+
+                            {{GetPaidBy(exp.paidBy)}}
+                            <b>Owed</b> {{ GetParticipateByID(exp.participantId)}} Rs: {{exp.amount}}/- on
+
+                            <b class="text-primary">{{exp.expName}}</b> in <b>{{ GetGroupByid(exp.groupid)}}</b>
+                        </td>
+                        <td class="text-center"><button type="button" class="btn btn-primary mt-4">Settle</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+<app-belownav></app-belownav>

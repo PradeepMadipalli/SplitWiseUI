@@ -31,7 +31,6 @@ export class AuthInterceptor implements HttpInterceptor {
                 .set('mode', 'no-cors');
             request = request.clone({ headers: headers });
         }
-        
         return next.handle(request).pipe(
             tap((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {

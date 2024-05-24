@@ -8,7 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class UserService {
 
-  private apiUrl: string;
+  //private apiUrl: string;
+  private apiUrl: string='https://localhost:7245/api'
   constructor(private config:ConfigService,private http:HttpClient) { 
     this.config.getConfig().subscribe(config => {
       this.apiUrl = config.apiUrl;

@@ -15,13 +15,40 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GroupService } from '../services/group.service';
 import { AuthInterceptor } from '../services/auth.interceptor';
+import { SettleUpComponent } from './settleup/settleup.component';
+import { GroupsComponent } from './groups/groups.component';
+import { ExpensesComponent } from './expenses/expenses.component';
+import { CreategroupComponent } from './creategroup/creategroup.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DetailsGroupComponent } from './details-group/details-group.component';
+import { ExpensedetailsComponent } from './expensedetails/expensedetails.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { NavComponent } from './nav/nav.component';
+import { BelownavComponent } from './belownav/belownav.component';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { FriendComponent } from './friend/friend.component';
+import { InvitationComponent } from './invitation/invitation.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DetailsComponent } from './details/details.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    SettleUpComponent,
+    GroupsComponent,
+    ExpensesComponent,
+    CreategroupComponent,
+    DetailsGroupComponent,
+    ExpensedetailsComponent,
+    NavComponent,
+    BelownavComponent,
+    FriendComponent,
+    InvitationComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,15 +58,18 @@ import { AuthInterceptor } from '../services/auth.interceptor';
     CommonModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot(),
+    AlertModule.forRoot()
   ],
-  providers: [AuthService,ConfigService,provideAnimations(),
+  providers: [AuthService, ConfigService, provideAnimations(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
     },
-  provideToastr(), GroupService],
+    provideToastr(), GroupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

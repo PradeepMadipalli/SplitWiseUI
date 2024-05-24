@@ -11,7 +11,6 @@ export class ConfigService {
   profile: any;
   private configUrl = 'assets/config.json';
   constructor(private http: HttpClient, private router: Router) { 
-
   }
   getConfig(): Observable<any> {
     return this.http.get(this.configUrl);
@@ -30,7 +29,13 @@ export class ConfigService {
   }
   getCuurectusername(): string {
     if (typeof sessionStorage !== 'undefined') {
-      return sessionStorage.getItem('Username');
+      return sessionStorage.getItem('UserName');
+   }
+    return null;
+  }
+  getCuurectuseremail(): string {
+    if (typeof sessionStorage !== 'undefined') {
+      return sessionStorage.getItem('email');
    }
     return null;
   }
@@ -42,7 +47,7 @@ export class ConfigService {
     sessionStorage.removeItem('Token');
     sessionStorage.removeItem('userid');
     sessionStorage.removeItem('Username');
-    
+    sessionStorage.removeItem('email');
     this.router.navigate(['/login']);
   }
   decodeToken(token: string): any {

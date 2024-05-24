@@ -1,0 +1,78 @@
+<app-nav></app-nav>
+<div class="card m-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <label for="exampleFormControlnotes" class="form-label"><b>Member List</b></label>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table mt-4">
+                                    <tbody>
+                                        <tr *ngFor="let mem of members">
+                                            <td>{{mem.userName}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-primary mt-4"
+                                    [routerLink]="['/creategroup',Groudid]">Add Member</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header text-center"><b>{{groupname}}({{createdDate|date: 'dd/MM/yyyy'}})</b></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <label for="exampleFormControlnotes" class="form-label"><b>Expenses</b></label>
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <table class="table mt-4">
+                                            <tbody>
+                                                <tr *ngFor="let ex of getExpenseDetails">
+                                                    <td><label for="exampleFormControlnotes"
+                                                            class="form-label ">{{ex.name}} <b>PaidBy</b>-{{GetPaidBy(ex.paidby)}} Your
+                                                            Share is RS {{ex.participantAmount}}</label><br></td>
+                                                    <td> <i class="fa fa-pencil-square-o" aria-hidden="true"
+                                                            [routerLink]="['/expenses',Groudid,ex.expId]"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-4"
+                                    [routerLink]="['/expenses',Groudid,0]">Add Expenses</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <label for="exampleFormControlnotes" class="form-label"><b>Transactions</b></label>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body text-center">
+                            <table class="table mt-4">
+                                <tbody>
+                                    <tr *ngFor="let tran of getTransactionDetails">
+                                        <td><label for="exampleFormControlnotes" class="form-label ">{{GetPaidBytransdi(tran.paidId)}} Paid Rs: {{tran.amount}}/- to {{GetPaidBytransdi(tran.receiverId)}}</label><br></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-belownav></app-belownav>

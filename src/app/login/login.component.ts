@@ -41,7 +41,9 @@ export class LoginComponent {
         sessionStorage.setItem("Profile", this.responseData.profiles);
         sessionStorage.setItem("Token", this.responseData.token);
         sessionStorage.setItem("userid", this.responseData.profiles.uId)
-        sessionStorage.setItem("Username", this.responseData.profiles.name)
+        sessionStorage.setItem("UserName", this.responseData.profiles.name)
+        sessionStorage.setItem("email", this.responseData.profiles.email)
+        
         this.router.navigate(['/dashboard']);
 
 

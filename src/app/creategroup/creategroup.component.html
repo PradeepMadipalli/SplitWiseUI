@@ -1,0 +1,112 @@
+
+<app-nav></app-nav>
+<div class="container" style="margin-top: 20px;">
+    <div class="card">
+        <div class="card-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Group Name:-</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" id="groupName" class="form-control" aria-describedby="passwordHelpInline"
+                            [(ngModel)]="groupname">
+                    </div>
+                </div>
+                <div class="card mt-5">
+                    <div class="card-header text-center">
+                        <h3>Member</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">Email Address</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let mem of members">
+                                    <td>{{mem.userName}}</td>
+                                    <td>{{mem.userEmail}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="javascript:void(0);" class="link-primary text-center" style="margin-left: 140px;"
+                            data-bs-target="#ShowUser" data-bs-toggle="modal" (click)="getmembers()">Add More</a><br>
+                        <a href="javascript:void(0);" class="text-center" style="margin-left: 130px;">Use Invite
+                            Link</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Category:-</label>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select" [(ngModel)]="groupcategory" aria-label="Default select example">
+                            <option value="-1">
+                               Select Category
+                            </option>
+                            <option *ngFor="let cate of datacategories" [value]="cate.categoriesList">
+                                {{cate.categoriesList}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col-lg-12 text-center">
+                            <h4>Simplify Debts</h4>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <div class="form-check">
+                                <input class="form-check-input" [(ngModel)]="groupSimplifyDebtsvalue" type="checkbox"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    <h4>True</h4>
+                                </label>
+                            </div>
+                            <div class="form-floating mt-5">
+                                <textarea class="form-control" [(ngModel)]="grouptextarea"
+                                    placeholder="Leave a comment here" id="floatingTextarea"
+                                    style="height: 100px"></textarea>
+                                <label for="floatingTextarea">Comments</label>
+                            </div>
+                            <a href="javascript:void(0);" class="btn btn-primary mt-5"
+                                (click)="CreateAndEditGroup()">{{isbuttonedit?"Edit or Save": "Click to Add"}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="ShowUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Users</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group" *ngFor="let user of users">
+                    <li class="list-group-item">{{user.userName}}<button style="float: right;"><i
+                                class="fa fa-user-plus" aria-hidden="true" (click)="addmembers(user)"></i></button></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-belownav></app-belownav>

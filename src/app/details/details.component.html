@@ -1,0 +1,49 @@
+<app-nav></app-nav>
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-7 ml-5">
+            <div class="card mt-5">
+
+                <div class="card-header">
+                    <b>Details</b>
+                </div>
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-body mt-3 ">
+
+                            <table class="table card-table mt-4">
+                                <tbody>
+                      
+                                        <tr *ngFor="let exp of expensedetails" class="mb-3">
+                                            <td style="text-align: center;" *ngIf="currentUser!=exp.participantId && exp.paidBy==currentUser">
+                                               
+                                                    {{GetPaidBy(exp.paidBy)}}
+                                                   <b>Owe</b> {{ GetParticipateByID(exp.participantId)}} Rs: {{exp.amount}}/- on
+
+                                                    <b class="text-primary">{{exp.expName}}</b> in <b>{{ GetGroupByid(exp.groupid)}}</b>
+                                            </td>
+                                            <td style="text-align: center;" *ngIf="currentUser!=exp.participantId && exp.paidBy!=currentUser">
+                                               
+                                                {{GetPaidBy(exp.paidBy)}}
+                                               <b>Owed</b> {{ GetParticipateByID(exp.participantId)}} Rs: {{exp.amount}}/- on
+
+                                                <b class="text-primary">{{exp.expName}}</b> in <b>{{ GetGroupByid(exp.groupid)}}</b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-5"></div>
+                            <div class="col-lg-7"><button class="btn btn-primary mt-2">Settle Up</button></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <app-belownav></app-belownav>
